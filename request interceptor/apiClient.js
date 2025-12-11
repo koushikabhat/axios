@@ -1,4 +1,6 @@
 const axios = require('axios');
+const {setToken , getToken, clearToken} = require('./token.js')
+
 
 
 const api  = axios.create({
@@ -17,9 +19,17 @@ api.interceptors.request.use((config)=>{
     config.headers["X-App-version"] = 1.1;
     config.headers["X-lang"] = "en";
 
+    //get the token 
+    const token = getToken();
 
     //adding auth token in headers
-    config.headers["Authorization"] = "Bearer dummy_token_value";
+    if(token) {
+        console.log("the token is : ", token);
+        config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    else{
+        config.headers["Authorization"] = null;
+    }
 
     //adding Content-Type header
     config.headers["Content-Type"] = "application/json";

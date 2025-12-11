@@ -1,4 +1,10 @@
 const api = require('./apiClient.js')
+const tokenStore = require('./token.js')
+
+
+//token 
+tokenStore.setToken("abcdef");
+
 
 const fetchPost = async()=>{
     try{
